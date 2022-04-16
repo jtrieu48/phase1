@@ -59,6 +59,7 @@ DIGIT [0-9]
 
 (\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currentPos += yyleng;}
 
+
 [a-zA-Z][a-zA-Z0-9_]*[_] {printf("Error at line %d, column %d. Identifier \"%s\" cannot end with an underscore\n", currentLine, currentPos, yytext); exit(0);}
 [a-zA-Z][a-zA-Z0-9_]*[a-zA-Z0-9]* {printf("IDENT %s\n", yytext);}
 
