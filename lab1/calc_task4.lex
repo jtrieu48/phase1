@@ -15,13 +15,14 @@ DIGIT [0-9]
 ")" {printf("R_PAREN\n"); currentPos += yyleng; numPara++;}
 "=" {printf("EQUAL\n"); currentPos += yyleng; numEq++;}
 
-{DIGIT}+ {printf("NUMBER %s\n", yytext); currentPos += yyleng; numInt++;}
+(\.{DIGIT}+)|({DIGIT}+(\.{DIGIT}*)?([eE][+-]?[0-9]+)?)   {printf("NUMBER %s\n", yytext); currentPos += yyleng; numInt++;}
+
 
 [ \t]+ {/* ignore spaces */ currentPos += yyleng;}
 
 "\n" {currentLine++; currentPos = 1;}
 
-.   {printf("Error at line %d, column %d.", currentLine, currentPos, yyin);}
+.   {printf("Error at line %d, column %d. Unrecognized symbol: \"%s\"\n", currentLine, currentPos, yytext); exit(0);}
 
 %%
 
